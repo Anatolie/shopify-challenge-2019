@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Toronto Waste Lookup</h1>
-    <search-form />
+    <search-form v-on:clear-results="clearResults" />
     <search-results />
   </div>
 </template>
@@ -15,6 +15,16 @@ export default {
   components: {
     searchForm,
     searchResults
+  },
+  data () {
+    return {
+      results: []
+    }
+  },
+  methods: {
+    clearResults: function () {
+      this.results = []
+    }
   }
 }
 </script>

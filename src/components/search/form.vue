@@ -20,6 +20,17 @@ export default {
     async submit () {
 
     }
+  },
+  watch: {
+    query: {
+      handler: function (val) {
+        // Clear the results if the search field is cleared
+        if (val === '') {
+          this.$emit('clear-results')
+        }
+      },
+      immediate: true
+    }
   }
 }
 </script>
