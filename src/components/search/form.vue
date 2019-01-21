@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     async submit () {
-
+      this.$emit('submit-search', this.query)
     }
   },
   watch: {
@@ -26,6 +26,7 @@ export default {
       handler: function (val) {
         // Clear the results if the search field is cleared
         if (val === '') {
+          this.query = null
           this.$emit('clear-results')
         }
       },
