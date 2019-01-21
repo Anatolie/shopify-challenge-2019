@@ -1,6 +1,6 @@
 <template>
   <section class="search-results">
-    <item v-for="result in results" :key="result.id" :item="result" />
+    <item v-for="result in results" :key="result.uid" :item="result" />
   </section>
 </template>
 

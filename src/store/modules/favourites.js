@@ -4,7 +4,13 @@ const state = {
 
 const getters = {
   isFavourited: (state) => (id) => {
-    return state.favourites.indexOf(id) !== -1
+    let x = state.favourites.filter(result => {
+      return result.uid === id
+    })
+    return x.length !== 0
+  },
+  list: (state) => {
+    return state.favourites
   }
 }
 
@@ -16,7 +22,11 @@ const actions = {
     commit('REMOVE_FAVOURITE', payload)
   },
   toggleFavourite ({ commit, state }, payload) {
-    if (state.favourites.indexOf(payload) !== -1) {
+    let x = state.favourites.filter(result => {
+      return result.uid === payload.uid
+    })
+
+    if (x.length !== 0) {
       commit('REMOVE_FAVOURITE', payload)
     } else {
       commit('ADD_FAVOURITE', payload)
@@ -26,15 +36,20 @@ const actions = {
 
 const mutations = {
   ADD_FAVOURITE: (state, payload) => {
-    if (state.favourites.indexOf(payload) === -1) {
+    let x = state.favourites.filter(result => {
+      return result.uid === payload.uid
+    })
+
+    if (x.length === 0) {
       state.favourites.push(payload)
     }
   },
   REMOVE_FAVOURITE: (state, payload) => {
-    let index = state.favourites.indexOf(payload)
-    if (index !== -1) {
-      state.favourites.splice(index, 1)
-    }
+    let x = state.favourites.filter(result => {
+      return result.uid === payload.uid
+    })[0]
+
+    state.favourites.splice(state.favourites.indexOf(x), 1)
   }
 }
 

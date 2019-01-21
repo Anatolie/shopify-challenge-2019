@@ -9,6 +9,7 @@
         v-on:clear-results="clearResults" />
       <search-results :results="results" />
     </div>
+    <search-favourites />
   </div>
 </template>
 
@@ -17,12 +18,14 @@ import he from 'he'
 import wasteAPI from '@/api/waste'
 import searchForm from './search/form'
 import searchResults from './search/results'
+import searchFavourites from './search/favourites'
 
 export default {
   name: 'shopify-challenge-2019',
   components: {
     searchForm,
-    searchResults
+    searchResults,
+    searchFavourites
   },
   data () {
     return {
