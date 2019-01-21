@@ -1,14 +1,15 @@
 <template>
   <section class="search-results">
-
+    results: {{ results }}
   </section>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      results: []
+  props: {
+    results: {
+      type: Array,
+      required: true
     }
   }
 }
