@@ -1,5 +1,23 @@
+/**
+ * API Wrapper
+ *
+ * This API wrapper was implemented to allow the axios instance to be
+ * re-used across sub wrappers and any future API calls that may be added.
+ *
+ * The wrapper is designed to call a callback function (defined under the
+ * data Object as the `success` or `fail` keys) with the result of the API
+ * call. If an API call fails the details are always printed to the console.
+ */
+
 import axios from 'axios'
 
+/**
+ * Main API call function.
+ *
+ * @param String method The HTTP method to use (ie: GET, POST, DELETE, PUT)
+ * @param String url The web URL to call (no base path defined)
+ * @param Object data Data to send to the API along with success/fail callbacks
+ */
 async function API (method, url, data) {
   // Create axios instance
   let instance = axios.create({})

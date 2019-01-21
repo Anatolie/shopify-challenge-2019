@@ -14,6 +14,11 @@
 </template>
 
 <script>
+/**
+ * This component displays the search form and calls the parent component
+ * to make the API request.
+ */
+
 export default {
   data () {
     return {
@@ -21,14 +26,19 @@ export default {
     }
   },
   methods: {
+    // Submits the search query to the parent component
     async submit () {
       this.$emit('submit-search', this.query)
     }
   },
   watch: {
+    /**
+     * Clears the results when the search field is cleared. You could also
+     * use this watcher to submit an API request as the user is typing the
+     * search text, if needed (currently requires a submit to search).
+     */
     query: {
       handler: function (val) {
-        // Clear the results if the search field is cleared
         if (val === '') {
           this.query = null
           this.$emit('clear-results')

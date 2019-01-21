@@ -6,6 +6,11 @@
 </template>
 
 <script>
+/**
+ * This component displays a list of favourites (using a list of item components).
+ * This data is fetched from the @/store/modules/favourites Vuex store.
+ */
+
 import { mapGetters } from 'vuex'
 import item from './item'
 

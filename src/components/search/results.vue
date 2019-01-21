@@ -5,6 +5,10 @@
 </template>
 
 <script>
+/**
+ * This component displays a list of search results (using a list of item components).
+ */
+
 import item from './item'
 
 export default {

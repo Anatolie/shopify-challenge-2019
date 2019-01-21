@@ -13,6 +13,12 @@
 </template>
 
 <script>
+/**
+ * This component displays a single item with the title, description and
+ * favourite toggle button. Used in both search results list and favourites
+ * list to reduce copy-pasta code.
+ */
+
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -30,10 +36,7 @@ export default {
   methods: {
     ...mapActions({
       toggleFavourite: 'favourites/toggleFavourite'
-    }),
-    favourite (item) {
-      this.addFavourite(item)
-    }
+    })
   }
 }
 </script>

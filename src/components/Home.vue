@@ -14,7 +14,12 @@
 </template>
 
 <script>
-import he from 'he'
+/**
+ * This component ties everything together: the search form, results
+ * and favourites list.
+ */
+
+import he from 'he' // <https://github.com/mathiasbynens/he>
 import wasteAPI from '@/api/waste'
 import searchForm from './search/form'
 import searchResults from './search/results'
@@ -33,26 +38,31 @@ export default {
     }
   },
   methods: {
+    /**
+     * Submits an API and searches using the query string provided.
+     *
+     * @param String query  The query string you're searching for.
+     */
     async submitSearch (query) {
       if (query !== null) {
+        // Request the data list from the API
         await wasteAPI.getList({
           success: (response) => {
-            let items = []
-            let result = []
+            let items = [] // Array of objects we recieve from the API
+            let result = [] // Array of objects we've filtered out as the result
 
-            this.results = []
+            // Clear results from the previous search query
+            this.clearResults()
 
+            // Sanitize data by generating a unique id for each object and remove
+            // whitespaces & trailing commas from keywords.
             response.data.forEach((item, index) => {
-              // Assign array index id as unique id
               item.uid = index
-
-              // Sanitize keywords string (remove whitespaces & trailing commas)
               item.keywords = item.keywords.trim().replace(/(^,)|(,$)/g, '')
-
               items.push(item)
             })
 
-            // Search keywords for search term
+            // Search keywords in each object for search term
             items.forEach(item => {
               // Only push unique items to result array
               if (item.keywords.includes(query) && result.indexOf(item.uid) === -1) {
@@ -60,12 +70,14 @@ export default {
               }
             })
 
+            // Loop through results and decode HTML bodies
             result.forEach(r => {
               let x = items.filter(result => {
                 return result.uid === r
               })[0]
 
               // Decode body string into usable HTML, v-html wouldn't decode the original string
+              // due to the HTML entities used, but the 'he' library did the trick
               x.body = he.decode(x.body)
 
               this.results.push(x)
@@ -77,6 +89,9 @@ export default {
         })
       }
     },
+    /**
+     * Clears all search results.
+     */
     clearResults () {
       this.results = []
     }
