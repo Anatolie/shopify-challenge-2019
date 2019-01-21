@@ -1,10 +1,14 @@
 <template>
   <div>
-    <h1>Toronto Waste Lookup</h1>
-    <search-form
-      v-on:submit-search="submitSearch"
-      v-on:clear-results="clearResults" />
-    <search-results :results="results" />
+    <div class="title">
+      <h1>Toronto Waste Lookup</h1>
+    </div>
+    <div class="body">
+      <search-form
+        v-on:submit-search="submitSearch"
+        v-on:clear-results="clearResults" />
+      <search-results :results="results" />
+    </div>
   </div>
 </template>
 
@@ -28,11 +32,12 @@ export default {
   methods: {
     async submitSearch (query) {
       if (query !== null) {
-        this.results = []
         await wasteAPI.getList({
           success: (response) => {
             let items = []
             let result = []
+
+            this.results = []
 
             response.data.forEach((item, index) => {
               // Assign array index id as unique id
@@ -77,5 +82,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.title {
+  width: 100%;
+  padding: 36px 0;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-image: linear-gradient(-90deg, #1D5B92 0%, #24975E 100%);
+}
+.body {
+  padding: 16px;
+}
 </style>
