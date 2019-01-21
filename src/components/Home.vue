@@ -54,11 +54,14 @@ export default {
             // Clear results from the previous search query
             this.clearResults()
 
+            // Need to make query lowercase for .indexOf to function on iOS devices
+            query = query.toLowerCase()
+
             // Sanitize data by generating a unique id for each object and remove
             // whitespaces & trailing commas from keywords.
             response.data.forEach((item, index) => {
               item.uid = index
-              item.keywords = item.keywords.trim().replace(/(^,)|(,$)/g, '')
+              item.keywords = item.keywords.trim().replace(/(^,)|(,$)/g, '').toLowerCase()
               items.push(item)
             })
 

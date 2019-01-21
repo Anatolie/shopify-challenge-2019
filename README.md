@@ -11,6 +11,7 @@ The project was built using Vue.js to take advantage of all the goodies that mod
 - Because the API returned a string of keywords instead of an array, I opted to do a simple text search using keywords[i].includes(query) since in this case (and to keep things simple) it would be less resource intensive than creating arrays and iterating over them.
 - The favourites feature utilizes a Vuex store which allows to expand functionality in the future. This could allow for using LocalStorage to save user favourites if they close and return to the app.
 - Data from the API had to be sanitized - there were trailing spaces and commas in some of the body and keyword elements. Some objects were missing the id parameter - the app gives each item a unique id by using an incrementing integer.
+- I needed to convert the keywords and the search query to lowercase since iOS devices are case sensitive when performing .indexOf() - this minor change was done after submission.
 
 ## Build Commands
 
